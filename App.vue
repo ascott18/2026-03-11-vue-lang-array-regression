@@ -14,6 +14,12 @@ class MapperArray<T, TInput> extends Array<T> {
 const array = ref(
   new MapperArray<string, string | number>((input) => input.toString()),
 );
+
+type IteratorType = ReturnType<(typeof array.value)[typeof Symbol.iterator]>;
+// IteratorType is correctly `ArrayIterator<string>`, not `ArrayIterator<string | number>`
+
+type ElementType = (typeof array.value)[number];
+// ElementType is correctly `string`, not `string | number`
 </script>
 
 <template>
